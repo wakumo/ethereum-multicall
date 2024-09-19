@@ -16,8 +16,15 @@ class Multicall {
 
   Multicall({required this.rpcUrl, required this.chainId});
 
+  static bool isSupport({required int chainId}) =>
+      getContractAddress(chainId: chainId) != null;
+
+  static String? getContractAddress({required int chainId}) =>
+      Networks.getContractBasedOnNetwork(chainId);
+
   Future<CallResponse> call({required CallRequest request}) async {
-    final contractAddress = Networks.getContractBasedOnNetwork(chainId);
+    final contractAddress = request.multicallContractAddress ??
+        getContractAddress(chainId: chainId);
     if (contractAddress == null) {
       throw Exception(
         'Network - $chainId doesn\'t have a multicall contract address defined. Please check your network or deploy your own contract on it.',

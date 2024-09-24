@@ -46,11 +46,12 @@ class Multicall {
         ],
       );
       final blockNumber = response[0];
-      final results = (response[2] as List)
-          .mapIndexed((i, e) => CallResult(
-              isSuccess: (e as List)[0],
-              result: request.callFunctions[i].decodeData(e[1])))
-          .toList();
+      final results = (response[2] as List).mapIndexed((i, e) {
+        final isSuccess = (e as List)[0] == true && (e[1] as List).isNotEmpty;
+        return CallResult(
+            isSuccess: isSuccess,
+            result: isSuccess ? request.callFunctions[i].decodeData(e[1]) : null);
+      }).toList();
       return CallResponse(blockNumber: blockNumber, results: results);
     } else {
       final response = await web3Client.call(

@@ -1,6 +1,6 @@
 class CallResult {
   final bool isSuccess;
-  final List<dynamic> result;
+  final List<dynamic>? result;
 
-  CallResult({this.isSuccess = true, required this.result});
+  CallResult({this.isSuccess = true, this.result});
 }

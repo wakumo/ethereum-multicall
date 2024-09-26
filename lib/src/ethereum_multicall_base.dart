@@ -23,7 +23,7 @@ class Multicall {
       Networks.getContractBasedOnNetwork(chainId);
 
   Future<CallResponse> call({required CallRequest request}) async {
-    final contractAddress = request.multicallContractAddress ??
+    final contractAddress = request.multicallCustomContractAddress ??
         getContractAddress(chainId: chainId);
     if (contractAddress == null) {
       throw Exception(
@@ -33,12 +33,12 @@ class Multicall {
     final web3Client = Web3Client(rpcUrl, Client());
     final contract = DeployedContract(ContractAbi.fromJson(abi, 'Multicall'),
         EthereumAddress.fromHex(contractAddress));
-    if (request.tryBlock) {
+    if (request.tryAggregate) {
       final response = await web3Client.call(
         contract: contract,
         function: contract.function('tryBlockAndAggregate'),
         params: [
-          true,
+          false,
           request.callFunctions
               .map((e) =>
                   [EthereumAddress.fromHex(e.contractAddress), e.encodedData])
@@ -50,7 +50,8 @@ class Multicall {
         final isSuccess = (e as List)[0] == true && (e[1] as List).isNotEmpty;
         return CallResult(
             isSuccess: isSuccess,
-            result: isSuccess ? request.callFunctions[i].decodeData(e[1]) : null);
+            result:
+                isSuccess ? request.callFunctions[i].decodeData(e[1]) : null);
       }).toList();
       return CallResponse(blockNumber: blockNumber, results: results);
     } else {

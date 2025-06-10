@@ -11,3 +11,7 @@
 
 * Rename option params
 * Set default aggregate throw error to false
+
+## 1.0.3
+
+* Update to use stable web3dart_avacus

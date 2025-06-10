@@ -1,5 +1,5 @@
 import 'package:ethereum_multicall/ethereum_multicall.dart';
-import 'package:web3dart/web3dart.dart';
+import 'package:web3dart_avacus/web3dart_avacus.dart';
 
 void main() async {
   const erc20Abi =

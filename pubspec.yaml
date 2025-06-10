@@ -1,6 +1,6 @@
 name: ethereum_multicall
 description: Multicall allows multiple smart contract constant function calls to be grouped into a single call and the results aggregated into a single result
-version: 1.0.2
+version: 1.0.3
 homepage: https://wakumo.vn
 repository: https://github.com/wakumo/ethereum-multicall
 
@@ -8,7 +8,7 @@ environment:
   sdk: ^3.3.0
 
 dependencies:
-  web3dart: ^2.3.3
+  web3dart_avacus: ^2.4.0
   collection: ^1.15.0
   http: ^0.13.6
 

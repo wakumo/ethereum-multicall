@@ -1,6 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:http/http.dart';
-import 'package:web3dart/web3dart.dart';
+import 'package:web3dart_avacus/web3dart_avacus.dart';
 
 import 'constant/networks.dart';
 import 'model/call_request.dart';
